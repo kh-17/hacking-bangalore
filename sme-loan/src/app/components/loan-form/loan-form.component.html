@@ -1,7 +1,218 @@
-<div>Fill the below information with detail</div>
+<div class="form-wrapper">
+  <div class="display-flex-container justify-center flex-align-center flex-col">
+    <div class="header">Fill the below information accurately</div>
+  </div>
+  <form
+    novalidate
+    [formGroup]="registerForm"
+    (ngSubmit)="onSumbitForm()"
+    class="form-container display-flex-container flex-col">
+    <p class="form-sections">General Information</p>
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.name }}</div>
+        <input type="text" [formControl]="registerFormControls.name" />
+      </div>
 
-<form     novalidate
-[formGroup]="registerForm"
-(ngSubmit)="onSumbitForm()">
-<button>submit</button>
-</form>
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.email }}</div>
+        <input type="email" [formControl]="registerFormControls.email" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.number }}</div>
+        <input type="number" [formControl]="registerFormControls.number" />
+      </div>
+    </div>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.address }}</div>
+        <input type="text" [formControl]="registerFormControls.address" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.pincode }}</div>
+        <input type="number" [formControl]="registerFormControls.pincode" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.constiLabel }}</div>
+        <select
+          name="{{ label.constiLabel }}"
+          id="{{ label.constiLabel }}"
+          [formControl]="registerFormControls.constitution">
+          <option disabled selected value>Select an option</option>
+          <option *ngFor="let opt of label.constitution; let idx = index" [value]="opt">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.date }}</div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.panNumber }}</div>
+        <input type="number" [formControl]="registerFormControls.panNumber" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.nature }}</div>
+        <input type="text" [formControl]="registerFormControls.nature" />
+      </div>
+    </div>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.gstin }}</div>
+        <input type="number" [formControl]="registerFormControls.gstin" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.sectorLabel }}</div>
+        <select
+          name="{{ label.sectorLabel }}"
+          id="{{ label.sectorLabel }}"
+          [formControl]="registerFormControls.sector">
+          <option disabled selected value>Select an option</option>
+          <option *ngFor="let opt of label.sector; let idx = index" [value]="opt">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.categoryLabel }}</div>
+        <select
+          name="{{ label.categoryLabel }}"
+          id="{{ label.categoryLabel }}"
+          [formControl]="registerFormControls.category">
+          <option disabled selected value>Select an option</option>
+          <option *ngFor="let opt of label.category; let idx = index" [value]="opt">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <p *ngIf="!isExistingLoan">Do you have any existing loan? <br /></p>
+    <p *ngIf="!isExistingLoan" (click)="clickExistingLoan()" class="more-info">
+      + Add existing loan information
+    </p>
+
+    <p *ngIf="isExistingLoan" class="form-sections">Existing Loan Information</p>
+
+    <div *ngIf="isExistingLoan" class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.existingLoan.typeLabel }}</div>
+        <select
+          name="{{ label.typeLabel }}"
+          id="{{ label.typeLabel }}"
+          [formControl]="registerFormControls.existingLoanType">
+          <option disabled selected value>Select an option</option>
+          <option *ngFor="let opt of label.existingLoan.type; let idx = index" [value]="opt">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.existingLoan.limit }}</div>
+        <input type="number" [formControl]="registerFormControls.existingLoanLimit" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.existingLoan.dueDate }}</div>
+        <input type="text" [formControl]="registerFormControls.existingLoanDueDate" />
+      </div>
+    </div>
+
+    <div *ngIf="isExistingLoan" class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.existingLoan.bankName }}</div>
+        <input type="text" [formControl]="registerFormControls.existingLoanBankName" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.existingLoan.roi }}</div>
+        <input type="number" [formControl]="registerFormControls.existingLoanROI" />
+      </div>
+    </div>
+
+    <p class="form-sections">Loan Request Information</p>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.typeLabel }}</div>
+        <select
+          name="{{ label.loanRequested.typeLabel }}"
+          id="{{ label.loanRequested.typeLabel }}"
+          [formControl]="registerFormControls.loanRequestedType">
+          <option disabled selected value>Select an option</option>
+          <option *ngFor="let opt of label.loanRequested.type; let idx = index" [value]="opt">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.amount }}</div>
+        <input type="number" [formControl]="registerFormControls.loanRequestedAmount" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.purpose }}</div>
+        <input type="text" [formControl]="registerFormControls.loanRequestedPurpose" />
+      </div>
+    </div>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.collateralLabel }}</div>
+        <select
+          name="{{ label.loanRequested.collateralLabel }}"
+          id="{{ label.loanRequested.collateralLabel }}"
+          [formControl]="registerFormControls.collateralOffered">
+          <option disabled selected value>Select an option</option>
+          <option *ngFor="let opt of label.loanRequested.collateral; let idx = index" [value]="opt">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <p class="form-sections">Company's Past Performance Information</p>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.pastData.sales }}</div>
+        <input type="number" [formControl]="registerFormControls.netSales" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.pastData.profit }}</div>
+        <input type="number" [formControl]="registerFormControls.netProfit" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.pastData.capital }}</div>
+        <input type="number" [formControl]="registerFormControls.capitalNetWorth" />
+      </div>
+    </div>
+
+    <p *ngIf="isFormSubmitted" class="error">The form is incomplete!</p>
+
+    <div class="button-div">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>

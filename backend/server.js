@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +23,7 @@ const userDataSchema = new Schema({
 
 const UserData = mongoose.model('sme_info', userDataSchema);
 
-
+app.use(cors())
 app.use(bodyParser.json());
 
 

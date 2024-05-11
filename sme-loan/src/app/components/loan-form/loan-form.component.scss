@@ -1,0 +1,86 @@
+.header {
+  margin: 5rem 0 0;
+  color: var(--blue);
+  font-size: 32px;
+  font-family: 'RubikBold';
+}
+
+.form-container {
+  padding: 0 5rem 5rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+form {
+  div {
+    display: flex;
+    justify-content: start;
+  }
+  .one-row-wrapper {
+    gap: 1.5rem;
+  }
+  .input-blank {
+    width: 32%;
+  }
+}
+
+.form-sections {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--red);
+  padding-top: 3rem;
+}
+
+.button-div {
+  justify-content: center !important;
+  button {
+    width: 15%;
+    height: 7vh;
+    background: var(--blue);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
+
+.more-info {
+  color: var(--red);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 16px;
+}
+
+input,
+select,
+option {
+  height: 4vh;
+  margin: 0.2rem 0 1.5rem;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input {
+  width: 100%;
+}
+
+::ng-deep
+  .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea)
+  .mat-mdc-form-field-infix {
+  padding: 0;
+}
+
+::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  height: 50px;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}

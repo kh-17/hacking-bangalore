@@ -4,8 +4,8 @@
         "address":"Office Address",
         "pincode":"Pincode",
         "number":"Telephone Number",
-        "mobile":"Mobile Number",
         "email":"Email Id.",
+        "constiLabel":"Constitution",
         "constitution":[
             "Proprietary",
             "Partnership",
@@ -18,21 +18,48 @@
         "panNumber":"PAN No.",
         "nature":"Nature of Business/Activity",
         "gstin":"GSTIN",
+        "sectorLabel":"Sector",
         "sector":[
             "Manufacturing",
             "Service"
         ],
+        "categoryLabel":"Category",
         "category":[
-            "Micro",
             "Small",
             "Medium"
         ],
-        "companyOwner":{
-            "name":"Name",
-            "age":"Age (year)",
-            "panNo":"PAN No",
-            "mobile":"Telephone no./Mobile",
-            "experience":"Years of Experience in the line"
+        "existingLoan":{
+            "typeLabel":"Type of Facilities",
+            "type":[
+                "Current Account",
+                "Cash Credit",
+                "Term Loan",
+                "LC/BG"
+            ],
+            "limit":"Limits(in lakhs)",
+            "dueDate":"Outstanding on",
+            "bankName":"Presently banking with",
+            "roi":"ROI"
+        },
+        "loanRequested":{
+            "typeLabel":"Type of Facilities",
+            "type":[
+                "Cash Credit",
+                "Term Loan",
+                "LC/BG"
+            ],
+            "amount":"Amount(in lakhs)",
+            "purpose":"Purpose for which required",
+            "collateralLabel":"Whether collateral security offered",
+            "collateral":[
+                "Yes",
+                "No"
+            ]
+        },
+        "pastData":{
+            "sales":"Net Sales",
+            "profit":"Net Profit",
+            "capital":"Capital/ Net Worth"
         }
     }
 }
