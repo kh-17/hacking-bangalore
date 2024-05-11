@@ -1,0 +1,38 @@
+{
+    "loanForm":{
+        "name":"Name of the Applicant",
+        "address":"Office Address",
+        "pincode":"Pincode",
+        "number":"Telephone Number",
+        "mobile":"Mobile Number",
+        "email":"Email Id.",
+        "constitution":[
+            "Proprietary",
+            "Partnership",
+            "Pvt. Ltd.",
+            "Ltd. Company",
+            "Co-op.society",
+            "Others"
+        ],
+        "date":"Date of Establishment",
+        "panNumber":"PAN No.",
+        "nature":"Nature of Business/Activity",
+        "gstin":"GSTIN",
+        "sector":[
+            "Manufacturing",
+            "Service"
+        ],
+        "category":[
+            "Micro",
+            "Small",
+            "Medium"
+        ],
+        "companyOwner":{
+            "name":"Name",
+            "age":"Age (year)",
+            "panNo":"PAN No",
+            "mobile":"Telephone no./Mobile",
+            "experience":"Years of Experience in the line"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root{
+    --red:#ED232A;
+    --blue:#004C8F;
+    --grey:#EEEEEE;
+}
+
+.display-flex-container {
+    display: flex;
+    &.flex-col {
+      flex-direction: column;
+    }
+    &.justify-center {
+      justify-content: center;
+    }
+    &.flex-align-center {
+      align-items: center;
+    }
+    &.justify-align-center {
+      justify-content: center;
+      align-items: center;
+    }
+    &.justify-start {
+      justify-content: flex-start;
+    }
+    &.justify-end {
+      justify-content: flex-end;
+    }
+    &.justify-sb {
+      justify-content: space-between;
+    }
+    &.align-stretch {
+      align-items: stretch;
+    }
+    &.flex-grow-one {
+      flex-grow: 1;
+    }
+    &.flex-grow-two {
+      flex-grow: 2;
+    }
+  }
+
+  body{
+    margin: 0;
+    background-color: var(--grey);
+    font-family: 'RubikRegular';
+  }
+
+  @font-face {
+    font-family: 'RubikBold';
+    src: url('../../sme-loan/src/assets/fonts/Rubik-Bold.ttf')format('opentype');
+  }
+
+  @font-face {
+    font-family: 'RubikRegular';
+    src: url('../../sme-loan/src/assets/fonts/Rubik-Regular.ttf')format('opentype');
+  }
