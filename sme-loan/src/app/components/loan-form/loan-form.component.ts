@@ -5,15 +5,17 @@ import {
   FormsModule,
   FormControl,
   Validators,
-  FormGroup,
-  AbstractControl
+  FormGroup
 } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import * as moment from 'moment';
 
 import * as formData from '../../form-data/form-values.json';
 import { GeneralApiService } from 'src/app/services/general-api/general-api.service';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-loan-form',
@@ -31,13 +33,17 @@ import { GeneralApiService } from 'src/app/services/general-api/general-api.serv
 })
 export class LoanFormComponent implements OnInit {
   formData = formData;
+  label: any;
   registerFormControls: any;
   registerForm: any;
-  label: any;
   isFormSubmitted = false;
   isExistingLoan = false;
 
-  constructor(private apiService: GeneralApiService) {}
+  constructor(
+    private apiService: GeneralApiService,
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.createLoanForm();
@@ -130,38 +136,6 @@ export class LoanFormComponent implements OnInit {
         },
         [Validators.required]
       ),
-      // existingLoanType: new FormControl({
-      //   value: '',
-      //   disabled: false
-      // }),
-      // existingLoanLimit: new FormControl(
-      //   {
-      //     value: '',
-      //     disabled: false
-      //   },
-      //   [Validators.required]
-      // ),
-      // existingLoanDueDate: new FormControl(
-      //   {
-      //     value: '',
-      //     disabled: false
-      //   },
-      //   [Validators.required]
-      // ),
-      // existingLoanBankName: new FormControl(
-      //   {
-      //     value: '',
-      //     disabled: false
-      //   },
-      //   [Validators.required]
-      // ),
-      // existingLoanROI: new FormControl(
-      //   {
-      //     value: '',
-      //     disabled: false
-      //   },
-      //   [Validators.required]
-      // ),
       loanRequestedType: new FormControl(
         {
           value: '',
@@ -204,7 +178,42 @@ export class LoanFormComponent implements OnInit {
         },
         [Validators.required]
       ),
-      capitalNetWorth: new FormControl(
+      netRevenue: new FormControl(
+        {
+          value: '',
+          disabled: false
+        },
+        [Validators.required]
+      ),
+      cibil: new FormControl(
+        {
+          value: '',
+          disabled: false
+        },
+        [Validators.required]
+      ),
+      loanTerm: new FormControl(
+        {
+          value: '',
+          disabled: false
+        },
+        [Validators.required]
+      ),
+      commercialAssets: new FormControl(
+        {
+          value: '',
+          disabled: false
+        },
+        [Validators.required]
+      ),
+      bankAssets: new FormControl(
+        {
+          value: '',
+          disabled: false
+        },
+        [Validators.required]
+      ),
+      luxuryAssets: new FormControl(
         {
           value: '',
           disabled: false
@@ -259,24 +268,66 @@ export class LoanFormComponent implements OnInit {
     this.createLoanForm();
   }
 
-  onSumbitForm() {
-    console.log('eefe');
+  createPayload() {
+    const date = moment(this.registerForm.value.date).format('MM-YYYY');
+    const existingLoanDueDate = moment(this.registerForm.value?.existingLoanDueDate).format(
+      'DD-MM-YYYY'
+    );
 
+    const payload = {
+      name: this.registerForm.value.name,
+      email: this.registerForm.value.email,
+      number: this.registerForm.value.number,
+      address: this.registerForm.value.address,
+      pincode: this.registerForm.value.pincode,
+      constitution: this.registerForm.value.constitution,
+      date: date,
+      panNumber: this.registerForm.value.panNumber,
+      nature: this.registerForm.value.nature,
+      gstin: this.registerForm.value.gstin,
+      sector: this.registerForm.value.sector,
+      category: this.registerForm.value.category,
+      existingLoanType: this.registerForm.value?.existingLoanType || null,
+      existingLoanLimit: this.registerForm.value?.existingLoanLimit || null,
+      existingLoanDueDate: existingLoanDueDate || null,
+      existingLoanBankName: this.registerForm.value?.existingLoanBankName || null,
+      existingLoanROI: this.registerForm.value?.existingLoanROI || null,
+      loanRequestedType: this.registerForm.value.loanRequestedType,
+      loanRequestedAmount: this.registerForm.value.loanRequestedAmount,
+      loanRequestedPurpose: this.registerForm.value.loanRequestedPurpose,
+      collateralOffered: this.registerForm.value.collateralOffered,
+      netSales: this.registerForm.value.netSales,
+      netProfit: this.registerForm.value.netProfit,
+      netRevenue: this.registerForm.value.netRevenue,
+      cibil: this.registerForm.value.cibil,
+      loanTerm: this.registerForm.value.loanTerm,
+      commercialAssets: this.registerForm.value.commercialAssets,
+      bankAssets: this.registerForm.value.bankAssets,
+      luxuryAssets: this.registerForm.value.luxuryAssets
+    };
+
+    return payload;
+  }
+
+  onSumbitForm() {
     if (this.registerForm.invalid) {
       this.isFormSubmitted = true;
-      console.log('wdbf', this.registerForm);
-
       return;
     }
+    this.spinner.show();
+    const payload = this.createPayload();
 
-    debugger;
     this.apiService
-      .loanForm(this.registerForm)
+      .loanForm(payload)
       .then((res: any) => {
         console.log(res);
       })
       .catch((err: any) => {
         console.log(err);
+      })
+      .finally(() => {
+        this.router.navigateByUrl('/credit-score');
+        this.spinner.hide();
       });
   }
 }

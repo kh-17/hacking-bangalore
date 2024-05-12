@@ -5,6 +5,7 @@ import { UserSignupComponent } from './components/user-signup/user-signup.compon
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { LoanFormComponent } from './components/loan-form/loan-form.component';
+import { CreditScoreComponent } from './components/credit-score/credit-score.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'loan-form',
     component: LoanFormComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'credit-score',
+    component: CreditScoreComponent,
     pathMatch: 'full'
   }
 ];

@@ -1,0 +1,41 @@
+<div
+  *ngIf="isLoanSanctioned; else notSanctioned"
+  class="display-flex-container justify-center flex-align-center flex-col success-block">
+  <img src="../../../assets/trophy-icon.png" alt="trophy-icon" />
+  <div class="header">Congratulations!</div>
+  <div class="sub-header">Your loan has been approved</div>
+
+  <div class="display-flex-container flex-col info-container">
+    <div class="display-flex-container justify-sb">
+      <div>Loan Amount Approved</div>
+      <div>Rs. 1,20,00,000</div>
+    </div>
+    <hr />
+    <div class="display-flex-container justify-sb">
+      <div>Processing Fee</div>
+      <div>Rs.3650 + 18% GST(657)</div>
+    </div>
+    <hr />
+    <div class="display-flex-container justify-sb">
+      <div>Tenure</div>
+      <div>36 months</div>
+    </div>
+    <hr />
+    <div class="display-flex-container justify-sb">
+      <div>Interest</div>
+      <div>7.5% p.m.</div>
+    </div>
+    <hr />
+  </div>
+</div>
+
+<ng-template #notSanctioned>
+  <div class="display-flex-container justify-center flex-align-center flex-col success-block">
+    <img src="../../../assets/sad-icon.png" alt="trophy-icon" />
+    <div class="header">Sorry!</div>
+    <div class="sub-header">Your loan has not been approved</div>
+    <div class="display-flex-container justify-sb">
+      <div>Please look into the following suggestions we have</div>
+    </div>
+  </div>
+</ng-template>

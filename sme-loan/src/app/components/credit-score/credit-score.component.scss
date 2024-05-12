@@ -1,0 +1,27 @@
+.success-block {
+  margin-top: 3rem;
+  img {
+    width: 170px;
+  }
+  .header {
+    font-size: 32px;
+    font-weight: 600;
+    padding: 2.5rem 0 1rem;
+  }
+  .sub-header {
+    font-size: 18px;
+    color: var(--red);
+    font-family: 'RubikBold';
+    padding: 0 0 2rem;
+  }
+  .info-container {
+    width: 30%;
+    gap: 1rem;
+    font-size: 15px;
+  }
+  hr {
+    border: 1px solid black;
+    width: 100%;
+    margin: 0;
+  }
+}

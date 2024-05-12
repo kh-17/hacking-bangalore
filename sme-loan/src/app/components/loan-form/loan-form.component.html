@@ -54,7 +54,11 @@
       <div class="display-flex-container flex-col input-blank">
         <div>{{ label.date }}</div>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
+          <input
+            [formControl]="registerFormControls.date"
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Choose a date" />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -62,7 +66,7 @@
 
       <div class="display-flex-container flex-col input-blank">
         <div>{{ label.panNumber }}</div>
-        <input type="number" [formControl]="registerFormControls.panNumber" />
+        <input type="text" [formControl]="registerFormControls.panNumber" />
       </div>
 
       <div class="display-flex-container flex-col input-blank">
@@ -74,7 +78,7 @@
     <div class="display-flex-container one-row-wrapper">
       <div class="display-flex-container flex-col input-blank">
         <div>{{ label.gstin }}</div>
-        <input type="number" [formControl]="registerFormControls.gstin" />
+        <input type="text" [formControl]="registerFormControls.gstin" />
       </div>
 
       <div class="display-flex-container flex-col input-blank">
@@ -132,7 +136,15 @@
 
       <div class="display-flex-container flex-col input-blank">
         <div>{{ label.existingLoan.dueDate }}</div>
-        <input type="text" [formControl]="registerFormControls.existingLoanDueDate" />
+        <mat-form-field>
+          <input
+            [formControl]="registerFormControls.existingLoanDueDate"
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Choose a date" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
       </div>
     </div>
 
@@ -188,6 +200,28 @@
           </option>
         </select>
       </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.loanTerm }}</div>
+        <input type="number" [formControl]="registerFormControls.loanTerm" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.commercialAssets }}</div>
+        <input type="number" [formControl]="registerFormControls.commercialAssets" />
+      </div>
+    </div>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.bankAssets }}</div>
+        <input type="number" [formControl]="registerFormControls.bankAssets" />
+      </div>
+
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.loanRequested.luxuryAssets }}</div>
+        <input type="number" [formControl]="registerFormControls.luxuryAssets" />
+      </div>
     </div>
 
     <p class="form-sections">Company's Past Performance Information</p>
@@ -204,8 +238,15 @@
       </div>
 
       <div class="display-flex-container flex-col input-blank">
-        <div>{{ label.pastData.capital }}</div>
-        <input type="number" [formControl]="registerFormControls.capitalNetWorth" />
+        <div>{{ label.pastData.revenue }}</div>
+        <input type="number" [formControl]="registerFormControls.netRevenue" />
+      </div>
+    </div>
+
+    <div class="display-flex-container one-row-wrapper">
+      <div class="display-flex-container flex-col input-blank">
+        <div>{{ label.pastData.cibil }}</div>
+        <input type="number" [formControl]="registerFormControls.cibil" />
       </div>
     </div>
 

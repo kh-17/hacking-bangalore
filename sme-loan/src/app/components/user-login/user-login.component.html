@@ -1,1 +1,27 @@
-<p>user-login works!</p>
+<div class="login-wrapper display-flex-container flex-align-center justify-center">
+  <div class="login-box display-flex-container flex-col">
+    <div class="display-flex-container justify-center">
+      <div class="toggle-bar active-tab" (click)="toogleTab('/login')">Login</div>
+      <div class="toggle-bar" (click)="toogleTab('/signup')">Sign Up</div>
+    </div>
+    <form
+      novalidate
+      [formGroup]="registerForm"
+      (ngSubmit)="onSumbitForm()"
+      class="display-flex-container flex-col justify-center flex-align-center form-wrapper">
+      <div class="display-flex-container flex-col justify-center flex-align-center form-input">
+        <div class="display-flex-container flex-col one-form-input">
+          <div class="form-label">Enter Email</div>
+          <input type="email" [formControl]="registerFormControls.email" />
+        </div>
+
+        <div class="display-flex-container flex-col one-form-input">
+          <div class="form-label">Enter Password</div>
+          <input type="password" [formControl]="registerFormControls.password" />
+        </div>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>

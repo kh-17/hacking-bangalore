@@ -54,12 +54,17 @@
             "collateral":[
                 "Yes",
                 "No"
-            ]
+            ],
+            "loanTerm":"Loan Term",
+            "commercialAssets":"Commercial Assets Value",
+            "bankAssets":"Bank Assets Value",
+            "luxuryAssets":"Luxury Assets Value"
         },
         "pastData":{
             "sales":"Net Sales",
             "profit":"Net Profit",
-            "capital":"Capital/ Net Worth"
+            "revenue":"Net Revenue",
+            "cibil":"Company Credit Report"
         }
     }
 }
