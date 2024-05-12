@@ -26,7 +26,7 @@ def predict():
     print([previous_loan, profitable, revenue, loan_term, cibil_score, profit, loan_amount, commercial_assets_value, luxury_assets_value, bank_asset_value])
     prediction = model.predict([[previous_loan, profitable, revenue, loan_term, cibil_score, profit, loan_amount, commercial_assets_value, luxury_assets_value, bank_asset_value]])
     
-    return jsonify({'prediction': prediction.tolist()[0]})
+    return jsonify({'prediction': round(prediction.tolist()[0])})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)  

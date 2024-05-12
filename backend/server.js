@@ -31,7 +31,7 @@ const userDataSchema = new Schema({
   category: String,
   existingLoanType: String,
   existingLoanLimit: Number,
-  existingLoanDueDate: Date,
+  existingLoanDueDate: String,
   existingLoanBankName: String,
   existingLoanROI: Number,
   loanRequestedType: String,

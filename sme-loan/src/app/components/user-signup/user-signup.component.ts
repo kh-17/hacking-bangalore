@@ -29,6 +29,7 @@ export class UserSignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.createLoginForm();
+    localStorage.clear();
   }
 
   toogleTab(router: string) {

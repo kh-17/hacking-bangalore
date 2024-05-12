@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios'
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralApiService {
+  constructor() {}
 
-  constructor() { }
-
-  loanForm(
-    loanData:any
-  ) {
-    const body: any = loanData
+  loanForm(loanData: any) {
+    const body: any = loanData;
     return axios.post('http://localhost:3000/api/user', body);
+  }
+
+  predictLoan(payload: any) {
+    const body: any = payload;
+    return axios.post('http://localhost:3000/predict', body);
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,6 +8,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './credit-score.component.html',
   styleUrls: ['./credit-score.component.scss']
 })
-export class CreditScoreComponent {
-  isLoanSanctioned = false;
+export class CreditScoreComponent implements OnInit {
+  isLoanSanctioned = localStorage.getItem('loanSanction') === 'true';
+  isYoung = localStorage.getItem('youngComp') === 'true';
+  loanAmount: any;
+  loanTerm: any;
+  processingFee: any;
+
+  ngOnInit(): void {
+    this.loanAmount = history.state.loanAmount;
+    this.loanTerm = history.state.loanTerm;
+    this.processingFee = history.state.processingFee;
+  }
 }

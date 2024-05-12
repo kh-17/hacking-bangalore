@@ -14,7 +14,7 @@ import * as moment from 'moment';
 
 import * as formData from '../../form-data/form-values.json';
 import { GeneralApiService } from 'src/app/services/general-api/general-api.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -38,6 +38,9 @@ export class LoanFormComponent implements OnInit {
   registerForm: any;
   isFormSubmitted = false;
   isExistingLoan = false;
+  isLoanSanctioned = false;
+  isThreeYrsOld = false;
+  establishmentDate: string = '';
 
   constructor(
     private apiService: GeneralApiService,
@@ -48,6 +51,7 @@ export class LoanFormComponent implements OnInit {
   ngOnInit(): void {
     this.createLoanForm();
     this.label = this.formData.loanForm;
+    localStorage.clear();
   }
 
   createLoanForm() {
@@ -222,6 +226,10 @@ export class LoanFormComponent implements OnInit {
       )
     };
 
+    this.registerForm = new FormGroup(this.registerFormControls);
+  }
+
+  addExistingLoanForm() {
     if (this.isExistingLoan) {
       this.registerFormControls['existingLoanType'] = new FormControl(
         {
@@ -259,20 +267,21 @@ export class LoanFormComponent implements OnInit {
         [Validators.required]
       );
     }
-
     this.registerForm = new FormGroup(this.registerFormControls);
   }
 
   clickExistingLoan() {
     this.isExistingLoan = true;
-    this.createLoanForm();
+    this.addExistingLoanForm();
   }
 
   createPayload() {
-    const date = moment(this.registerForm.value.date).format('MM-YYYY');
+    const date = moment(this.registerForm.value.date).format('DD-MM-YYYY');
     const existingLoanDueDate = moment(this.registerForm.value?.existingLoanDueDate).format(
       'DD-MM-YYYY'
     );
+
+    this.establishmentDate = date;
 
     const payload = {
       name: this.registerForm.value.name,
@@ -309,6 +318,23 @@ export class LoanFormComponent implements OnInit {
     return payload;
   }
 
+  createPredictionPayload() {
+    const payload = {
+      previous_loan: this.isExistingLoan ? 1 : 0,
+      profitable: this.registerForm.value.netProfit > 0 ? 1 : 0,
+      revenue: this.registerForm.value.netRevenue,
+      loan_term: this.registerForm.value.loanTerm,
+      cibil_score: this.registerForm.value.cibil,
+      profit: this.registerForm.value.netProfit,
+      loan_amount: this.registerForm.value.loanRequestedAmount,
+      commercial_assets_value: this.registerForm.value.commercialAssets,
+      luxury_assets_value: this.registerForm.value.luxuryAssets,
+      bank_asset_value: this.registerForm.value.bankAssets
+    };
+
+    return payload;
+  }
+
   onSumbitForm() {
     if (this.registerForm.invalid) {
       this.isFormSubmitted = true;
@@ -326,7 +352,42 @@ export class LoanFormComponent implements OnInit {
         console.log(err);
       })
       .finally(() => {
-        this.router.navigateByUrl('/credit-score');
+        this.getLoanPrediction();
+      });
+  }
+
+  getLoanPrediction() {
+    const currentDate = moment();
+    const yearsSinceEstablishment = currentDate.diff(this.establishmentDate, 'years') + 1;
+
+    if (yearsSinceEstablishment < 3) {
+      localStorage.setItem('loanSanction', 'false');
+      localStorage.setItem('youngComp', 'true');
+
+      const navigationExtras: NavigationExtras = {
+        state: {
+          loanAmount: this.registerForm.value.loanRequestedAmount,
+          loanTerm: this.registerForm.value.loanTerm,
+          processingFee: 0.5 * this.registerForm.value.loanRequestedAmount
+        }
+      };
+
+      this.router.navigateByUrl('credit-score', navigationExtras);
+      this.spinner.hide();
+    }
+
+    const loanPayload = this.createPredictionPayload();
+
+    this.apiService
+      .predictLoan(loanPayload)
+      .then((res) => {
+        console.log(res);
+        this.isLoanSanctioned = res.data.prediction === 1;
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        localStorage.setItem('loanSanction', String(this.isLoanSanctioned));
+        this.router.navigateByUrl('credit-score');
         this.spinner.hide();
       });
   }

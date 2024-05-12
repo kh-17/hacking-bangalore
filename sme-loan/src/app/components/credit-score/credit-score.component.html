@@ -8,22 +8,22 @@
   <div class="display-flex-container flex-col info-container">
     <div class="display-flex-container justify-sb">
       <div>Loan Amount Approved</div>
-      <div>Rs. 1,20,00,000</div>
+      <div>{{ loanAmount }}</div>
     </div>
     <hr />
     <div class="display-flex-container justify-sb">
       <div>Processing Fee</div>
-      <div>Rs.3650 + 18% GST(657)</div>
+      <div>{{ processingFee }}</div>
     </div>
     <hr />
     <div class="display-flex-container justify-sb">
       <div>Tenure</div>
-      <div>36 months</div>
+      <div>{{ loanTerm }} years</div>
     </div>
     <hr />
     <div class="display-flex-container justify-sb">
       <div>Interest</div>
-      <div>7.5% p.m.</div>
+      <div>9.25% p.a.</div>
     </div>
     <hr />
   </div>
@@ -35,7 +35,15 @@
     <div class="header">Sorry!</div>
     <div class="sub-header">Your loan has not been approved</div>
     <div class="display-flex-container justify-sb">
-      <div>Please look into the following suggestions we have</div>
+      <div class="display-flex-container flex-align-center">
+        Please look into the following suggestions we have
+      </div>
+      <ul>
+        <li *ngIf="isYoung">
+          The company needs to be minimum 3 years old to be eliglible to apply for loans
+        </li>
+        <li>The company CCR is low and needs to be higher</li>
+      </ul>
     </div>
   </div>
 </ng-template>
