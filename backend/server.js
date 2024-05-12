@@ -40,7 +40,12 @@ const userDataSchema = new Schema({
   collateralOffered: String,
   netSales: Number,
   netProfit: Number,
-  capitalNetWorth: Number,
+  netRevenue: Number,
+  cibil: Number,
+  loanTerm: Number,
+  commercialAssets: Number,
+  bankAssets: Number,
+  luxuryAssets: Number,
 });
 
 const UserData = mongoose.model("sme_info", userDataSchema);
@@ -48,17 +53,20 @@ const UserData = mongoose.model("sme_info", userDataSchema);
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('/predict', async (req, res) => {
-    try {
-      const inputData = req.body;
-      const predictionResponse = await axios.post('http://127.0.0.1:5001/predict', inputData); 
-      const prediction = predictionResponse.data.prediction;
-      res.json({ prediction });
-    } catch (error) {
-      console.error('Error:', error.message);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+app.post("/predict", async (req, res) => {
+  try {
+    const inputData = req.body;
+    const predictionResponse = await axios.post(
+      "http://127.0.0.1:5001/predict",
+      inputData
+    );
+    const prediction = predictionResponse.data.prediction;
+    res.json({ prediction });
+  } catch (error) {
+    console.error("Error:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app.post("/api/user", async (req, res) => {
   try {
@@ -86,7 +94,12 @@ app.post("/api/user", async (req, res) => {
       collateralOffered: req.body.collateralOffered,
       netSales: req.body.netSales,
       netProfit: req.body.netProfit,
-      capitalNetWorth: req.body.capitalNetWorth
+      netRevenue: req.body.netRevenue,
+      cibil: req.body.cibil,
+      loanTerm: req.body.loanTerm,
+      commercialAssets: req.body.commercialAssets,
+      bankAssets: req.body.bankAssets,
+      luxuryAssets: req.body.luxuryAssets,
     });
 
     await newUser.save();
