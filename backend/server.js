@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const axios = require("axios");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +24,7 @@ const userDataSchema = new Schema({
   pincode: Number,
   constitution: String,
   date: Date,
-  panNumber: Number,
+  panNumber: String,
   nature: String,
   gstin: String,
   sector: String,
@@ -46,6 +47,18 @@ const UserData = mongoose.model("sme_info", userDataSchema);
 
 app.use(cors());
 app.use(bodyParser.json());
+
+app.post('/predict', async (req, res) => {
+    try {
+      const inputData = req.body;
+      const predictionResponse = await axios.post('http://127.0.0.1:5001/predict', inputData); 
+      const prediction = predictionResponse.data.prediction;
+      res.json({ prediction });
+    } catch (error) {
+      console.error('Error:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 app.post("/api/user", async (req, res) => {
   try {
